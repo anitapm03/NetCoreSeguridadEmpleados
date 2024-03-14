@@ -42,5 +42,7 @@ namespace NetCoreSeguridadEmpleados.Controllers
                 this.repo.GetEmpleadosDepartamentoAsync(IdDepartamento);
             return View(empleados);
         }
+
+        
     }
 }
