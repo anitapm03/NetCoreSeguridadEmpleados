@@ -17,6 +17,17 @@ namespace NetCoreSeguridadEmpleados.Filters
                 //ENVIAMOS A LA VISTA LOGIN
                 context.Result = this.GetRoute("Managed", "Login");
             }
+            else
+            {
+                //hay que comprobar el rol del user
+                //para permitir o no el acceso
+                if (user.IsInRole("PRESIDENTE") == false
+                    && user.IsInRole("ANALISTA") == false
+                    && user.IsInRole("DIRECTOR") == false)
+                {
+                    context.Result = this.GetRoute("Manager", "ErrorAcceso");
+                }
+            }
         }
 
         //COMO TENDREMOS MULTIPLES REDIRECCIONES, CREAMOS UN METODO

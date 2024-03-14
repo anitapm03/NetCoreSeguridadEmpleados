@@ -39,6 +39,23 @@ namespace NetCoreSeguridadEmpleados.Controllers
                 Claim claimName =
                     new Claim(ClaimTypes.Name, empleado.Apellido);
                 identity.AddClaim(claimName);
+
+                Claim claimId =
+                    new Claim(ClaimTypes.NameIdentifier, empleado.IdEmpleado.ToString());
+                identity.AddClaim(claimId);
+
+                Claim claimOficio =
+                    new Claim(ClaimTypes.Role, empleado.Oficio);
+                identity.AddClaim(claimOficio);
+
+                Claim claimSalario =
+                    new Claim("Salario", empleado.Salario.ToString());
+                identity.AddClaim(claimSalario);
+
+                Claim claimDept =
+                    new Claim("Departamento", empleado.Departamento.ToString());
+                identity.AddClaim(claimDept);
+
                 //COMO POR AHORA NO VOY A UTILIZAR NI SE UTILIZAR ROLES
                 //NO LO INCLUIMOS
                 ClaimsPrincipal userPrincipal =
@@ -62,6 +79,11 @@ namespace NetCoreSeguridadEmpleados.Controllers
             await HttpContext.SignOutAsync
                 (CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult ErrorAcceso()
+        {
+            return View();
         }
     }
 }
