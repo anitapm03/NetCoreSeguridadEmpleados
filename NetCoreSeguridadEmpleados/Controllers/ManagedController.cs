@@ -63,9 +63,12 @@ namespace NetCoreSeguridadEmpleados.Controllers
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     userPrincipal);
-                //LO VAMOS A LLEVAR A UNA VISTA QUE TODAVIA NO TENEMOS
-                //QUE SERA EL PERFIL DEL EMPLEADO
-                return RedirectToAction("PerfilEmpleado", "Empleados");
+                //LO VAMOS A LLEVAR A UNA VISTA con info que 
+                //devuelve el filter
+                string controller = TempData["controller"].ToString();
+                string action = TempData["action"].ToString();
+
+                return RedirectToAction(action, controller);
             }
             else
             {

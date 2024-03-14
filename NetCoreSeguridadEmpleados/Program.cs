@@ -20,9 +20,14 @@ string connectionString =
 builder.Services.AddTransient<RepositoryEmpleados>();
 builder.Services.AddDbContext<EmpleadosContext>
     (options => options.UseSqlServer(connectionString));
+
+//Habilitamos session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 //PERSONALIZAMOS NUESTRAS RUTAS
 builder.Services.AddControllersWithViews
-    (options => options.EnableEndpointRouting = false);
+    (options => options.EnableEndpointRouting = false)
+    .AddSessionStateTempDataProvider();
 
 var app = builder.Build();
 
@@ -38,7 +43,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
